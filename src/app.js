@@ -47,7 +47,6 @@ var Home = (function Home() {
       return !(todo.id == id);
     })
     localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
-    console.log(todosCollection)
     const elementToBeDeleted = document.querySelector(`[data-key='${id}']`);
     elementToBeDeleted.parentNode.removeChild(elementToBeDeleted);
   }
@@ -90,9 +89,9 @@ var Home = (function Home() {
         }
       });
 
-    document.querySelectorAll('.delete').forEach(function addDeleteToButton(button) {
-        button.addEventListener('click', function removeOnClick(e) {
-          deleteTodo(button.value);
+    document.querySelectorAll('.delete').forEach(function addDeleteFunctionToButton(deleteButton) {
+        deleteButton.addEventListener('click', function removeOnClick() {
+          deleteTodo(deleteButton.value);
         });
       })
 
@@ -146,7 +145,6 @@ var App = (function App() {
 
   async function render() {
     const url = requestURL();
-    console.log(url)
     const page = routes[url] || Home;
     root.innerHTML = await page.render();
     await page.after_render();
