@@ -1,30 +1,34 @@
 'use strict';
 
-window.addEventListener('hashchange', () => App.render());
 window.addEventListener('load', () => App.render());
+window.addEventListener('hashchange', () => App.render());;
+
+//********************************
 
 var Home = (function Home() {
   var todosCollection = JSON.parse(localStorage.getItem('todoStorage')) || [];
 
   return { render, after_render };
 
-  function saveTodo(todo) {
-    todosCollection.push(todo);
-    localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
-  }
+  //********************************
 
-  function renderNewTodo(todo) {
+  function renderTodo(todo) {
     const todoHtml = `
       <li class="todo-item" data-key="${todo.id}">
         <label for="${todo.id}" class="isRead">
           <input id="${todo.id}" type="checkbox"/>
         </label>
         <span>${todo.description}</span>
-        <button class="delete"> X </button>
+        <button class="delete" value="${todo.id}"> X </button>
       </li>
     `
 
     document.querySelector('.list').insertAdjacentHTML('beforeend', todoHtml);
+  }
+
+  function saveTodo(todo) {
+    todosCollection.push(todo);
+    localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
   }
 
   function addTodo(todoDescription) {
@@ -35,13 +39,23 @@ var Home = (function Home() {
     }
 
     saveTodo(todo);
-    renderNewTodo(todo);
+    renderTodo(todo);
+  }
+
+  function deleteTodo(id) {
+    todosCollection = todosCollection.filter(function findByIdAndRemove(todo) {
+      return !(todo.id == id);
+    })
+    localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
+    console.log(todosCollection)
+    const elementToBeDeleted = document.querySelector(`[data-key='${id}']`);
+    elementToBeDeleted.parentNode.removeChild(elementToBeDeleted);
   }
 
   function loadTodos() {
     if (todosCollection) {
       todosCollection.forEach(function renderEach(todo) {
-        renderNewTodo(todo);
+        renderTodo(todo);
       })
     }
   }
@@ -67,29 +81,40 @@ var Home = (function Home() {
 
     document
       .querySelector('.add')
-      .addEventListener('click', function createTodoOnClick() {
-        const todoDescription = descriptionInput.value;
-        if (todoDescription.trim() != '') {
-          addTodo(todoDescription);
-        }
+      .addEventListener('click', function addOnClick() {
+        createTodo();
       })
-      descriptionInput.addEventListener('keyup', function createTodoOnKeyup(event) {
+      descriptionInput.addEventListener('keyup', function addOnKeyup(event) {
         if (event.key == 'Enter') {
-          const todoDescription = descriptionInput.value;
-          if (todoDescription.trim() != '') {
-            addTodo(todoDescription);
-          }
+          createTodo();
         }
       });
+
+    document.querySelectorAll('.delete').forEach(function addDeleteToButton(button) {
+        button.addEventListener('click', function removeOnClick(e) {
+          deleteTodo(button.value);
+        });
+      })
 
     document
       .querySelector('.to')
       .addEventListener('click', function redirectTo() { location.hash = '/about' });
+
+    //********************************
+
+    function createTodo() {
+      const todoDescription = descriptionInput.value;
+      if (todoDescription.trim() != '') {
+        addTodo(todoDescription);
+      }
+    }
   }
 })()
 
 var About = (function About() {
   return { render, after_render };
+
+  //********************************
 
   function render() {
     return `
@@ -115,14 +140,14 @@ var App = (function App() {
     '/about': About,
   };
 
-  return {
-    render
-  };
+  return { render };
+
+  //********************************
 
   async function render() {
     const url = requestURL();
+    console.log(url)
     const page = routes[url] || Home;
-    console.log(page)
     root.innerHTML = await page.render();
     await page.after_render();
   }
