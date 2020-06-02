@@ -63,12 +63,24 @@ var Home = (function Home() {
   function after_render() {
     loadTodos();
 
+    var descriptionInput = document.querySelector('#todoDescription');
+
     document
       .querySelector('.add')
       .addEventListener('click', function createTodoOnClick() {
-        const todoDescriptionInput = document.querySelector('#todoDescription');
-        addTodo(todoDescriptionInput.value);
-    });
+        const todoDescription = descriptionInput.value;
+        if (todoDescription.trim() != '') {
+          addTodo(todoDescription);
+        }
+      })
+      descriptionInput.addEventListener('keyup', function createTodoOnKeyup(event) {
+        if (event.key == 'Enter') {
+          const todoDescription = descriptionInput.value;
+          if (todoDescription.trim() != '') {
+            addTodo(todoDescription);
+          }
+        }
+      });
 
     document
       .querySelector('.to')
