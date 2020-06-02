@@ -19,6 +19,11 @@
       "no-shadow": "off",
       "prefer-arrow-callback": "off",
       "no-param-reassign": "off",
-      "strict": "off"
+      "strict": "off",
+      "no-use-before-define": "off",
+      "vars-on-top": "off",
+      "no-restricted-globals": "off",
+      "eqeqeq": "off",
+      "prefer-const": "off"
     }
 }
