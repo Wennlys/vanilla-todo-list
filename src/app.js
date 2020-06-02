@@ -4,16 +4,46 @@ window.addEventListener('hashchange', () => App.render());
 window.addEventListener('load', () => App.render());
 
 var Home = (function Home() {
+  var todosCollection = JSON.parse(localStorage.getItem('todoStorage')) || [];
+
   return { render, after_render };
 
-  function addTodo() {
+  function saveTodo(todo) {
+    todosCollection.push(todo);
+    localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
+  }
+
+  function renderNewTodo(todo) {
     const todoHtml = `
-      <li class="item">
-        <p>${new Date().getTime()}</p>
+      <li class="todo-item" data-key="${todo.id}">
+        <label for="${todo.id}" class="isRead">
+          <input id="${todo.id}" type="checkbox"/>
+        </label>
+        <span>${todo.description}</span>
+        <button class="delete"> X </button>
       </li>
     `
 
     document.querySelector('.list').insertAdjacentHTML('beforeend', todoHtml);
+  }
+
+  function addTodo(todoDescription) {
+    var todo = {
+      description: todoDescription,
+      done: false,
+      id: Date.now()
+    }
+
+    saveTodo(todo);
+    renderNewTodo(todo);
+  }
+
+  function loadTodos() {
+    if (todosCollection) {
+      todosCollection.forEach(function renderEach(todo) {
+        renderNewTodo(todo);
+      })
+    }
   }
 
   function render() {
@@ -21,18 +51,28 @@ var Home = (function Home() {
      <section class="section">
        <h1> Home </h1>
        <ul class="list"></ul>
-         <button class="add"> Add ToDo </button>
-         <button class="to"> About </button>
+       <label for="todoDescription" class="description">
+         <input id="todoDescription" />
+       </label>
+       <button class="add"> Add ToDo </button>
+       <button class="to"> About </button>
      </section>
    `;
   }
 
   function after_render() {
-    document.querySelector('.add').addEventListener('click', addTodo);
+    loadTodos();
 
-    document.querySelector('.to').addEventListener('click', function redirectTo() {
-      location.hash = '/about';
+    document
+      .querySelector('.add')
+      .addEventListener('click', function createTodoOnClick() {
+        const todoDescriptionInput = document.querySelector('#todoDescription');
+        addTodo(todoDescriptionInput.value);
     });
+
+    document
+      .querySelector('.to')
+      .addEventListener('click', function redirectTo() { location.hash = '/about' });
   }
 })()
 
