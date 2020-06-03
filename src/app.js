@@ -1,7 +1,8 @@
 'use strict';
 
-window.addEventListener('load', () => App.render());
-window.addEventListener('hashchange', () => App.render());
+window.addEventListener('load', () => App.renderContent());
+window.addEventListener('hashchange', () => App.renderContent());
+window.addEventListener('DOMContentLoaded', () => App.renderPage());
 
 //* *******************************
 
@@ -158,7 +159,6 @@ var Footer = (function Footer() {
   return { render, afterRender };
 
   function render() {
-    console.log('footer');
     return `
       <footer>
         <ul class="nav-bar">
@@ -182,17 +182,22 @@ var App = (function App() {
     '/about': About,
   };
 
-  return { render };
+  return { renderContent, renderPage };
 
   //* *******************************
 
-  async function render() {
+  function renderPage() {
+    root.insertAdjacentHTML('afterbegin', Header.render());
+    root.insertAdjacentHTML('beforeend', '<div id="content">');
+    root.insertAdjacentHTML('beforeend', Footer.render());
+    renderContent();
+  }
+
+  function renderContent() {
     const url = requestURL();
     let page = routes[url] || Home;
-    root.innerHTML = await page.render();
-    await page.afterRender();
-    root.insertAdjacentHTML('afterbegin', Header.render());
-    root.insertAdjacentHTML('beforeend', Footer.render());
+    document.getElementById('content').innerHTML = page.render();
+    page.afterRender();
   }
 
   function requestURL() {
