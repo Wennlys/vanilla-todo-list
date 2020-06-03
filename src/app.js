@@ -19,7 +19,9 @@ var Home = (function Home() {
           <input id="${todo.id}" type="checkbox"/>
         </label>
         <span>${todo.description}</span>
-        <button class="delete" value="${todo.id}"> X </button>
+        <button class="delete" value="${todo.id}">
+            <img src="public/assets/delete-button.svg" alt="Remove this To Do"/>
+        </button>
       </li>
     `;
 
@@ -27,7 +29,7 @@ var Home = (function Home() {
 
     document
       .querySelector(`[value="${todo.id}"]`)
-      .addEventListener('click', function removeOnClick() {
+      .addEventListener('click', function deleteOnClick() {
         deleteTodo(todo.id);
       });
   }
@@ -68,15 +70,17 @@ var Home = (function Home() {
 
   function render() {
     return `
-     <section class="section">
-       <h1> Home </h1>
+     <main>
+       <h1> ToDo List </h1>
        <ul class="list"></ul>
        <label for="todoDescription" class="description">
          <input id="todoDescription"/>
        </label>
-       <button class="add"> Add ToDo </button>
+       <button class="add">
+        <img src="public/assets/add-button.svg" alt="Add new To Do" /> 
+       </button>
        <button class="to"> About </button>
-     </section>
+     </main>
    `;
   }
 
@@ -117,10 +121,10 @@ var About = (function About() {
 
   function render() {
     return `
-      <section class="section">
+      <main>
         <h1> About </h1>
           <button id="btn"> Home </button>
-      </section>
+      </main>
     `;
   }
 
@@ -128,6 +132,45 @@ var About = (function About() {
     document
       .getElementById('btn')
       .addEventListener('click', function onClick() { location.hash = '/'; });
+  }
+}());
+
+var Header = (function Header() {
+  return { render, afterRender };
+
+  function render() {
+    return `
+      <header>
+        <ul class="nav-bar">
+          <li><a href="#">Home</a></li>
+          <li><a href="/#/about">Home</a></li>
+        </ul>
+      </header>
+    `;
+  }
+
+  function afterRender() {
+
+  }
+}());
+
+var Footer = (function Footer() {
+  return { render, afterRender };
+
+  function render() {
+    console.log('footer');
+    return `
+      <footer>
+        <ul class="nav-bar">
+          <li><a href="#">Home</a></li>
+          <li><a href="/#/about">Home</a></li>
+        </ul>
+      </footer>
+    `;
+  }
+
+  function afterRender() {
+
   }
 }());
 
@@ -145,9 +188,11 @@ var App = (function App() {
 
   async function render() {
     const url = requestURL();
-    const page = routes[url] || Home;
+    let page = routes[url] || Home;
     root.innerHTML = await page.render();
     await page.afterRender();
+    root.insertAdjacentHTML('afterbegin', Header.render());
+    root.insertAdjacentHTML('beforeend', Footer.render());
   }
 
   function requestURL() {
