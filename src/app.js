@@ -163,16 +163,23 @@ var About = (function About() {
 
   //* *******************************
 
-  function render() {
+  async function render() {
+    const user = await fetch('https://api.github.com/users/wennlys').then((response) => response.json());
     return `
-      <main>
-        <h1> About </h1>
-          <button id="btn"><a href="/">Home</a></button>
+      <main class="about">
+        <h1> About Me </h1>
+          <img class="profile" src="${user.avatar_url}" alt="My profile image" />
+          <h2>${user.name}</h2>
+          <p>${user.bio}</p>
+          <a href="${user.html_url}">My Repos</a>
+          <a href="/">Home</a>
       </main>
     `;
   }
 
-  function afterRender() {}
+  function afterRender() {
+
+  }
 }());
 
 var Header = (function Header() {
@@ -209,17 +216,17 @@ var App = (function App() {
 
   //* *******************************
 
-  function renderPage() {
+  async function renderPage() {
     root.insertAdjacentHTML('afterbegin', Header.render());
     root.insertAdjacentHTML('beforeend', '<div id="content">');
+    await renderContent();
     root.insertAdjacentHTML('beforeend', Footer.render());
-    renderContent();
   }
 
-  function renderContent() {
+  async function renderContent() {
     const url = requestURL();
     let page = routes[url] || Home;
-    document.getElementById('content').innerHTML = page.render();
+    document.getElementById('content').innerHTML = await page.render();
     page.afterRender();
   }
 

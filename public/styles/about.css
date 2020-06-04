@@ -1,0 +1,42 @@
+main.about {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main.about h1 {
+  font-size: 50px;
+}
+
+main.about img {
+  width: 300px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border: 5px solid #FFFFFF;
+  border-radius: 50%;
+}
+
+main.about h2 {
+  font-size: 30px;
+}
+
+main.about p {
+  width: 60%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+main.about a {
+  cursor: pointer;
+  width: 300px;
+  bottom: 13px;
+  background: var(--main-blue);
+  margin-bottom: 10px;
+  color: #FFFFFF;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
