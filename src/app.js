@@ -5,6 +5,23 @@ window.addEventListener('hashchange', () => App.renderContent());
 
 //* *******************************
 
+var Helpers = (function Helpers() {
+  return { sanitizeInput };
+
+  function sanitizeInput(string) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      '/': '&#x2F;',
+    };
+    const reg = /[&<>"'/]/ig;
+    return string.replace(reg, (match) => (map[match])).trim();
+  }
+}());
+
 var Home = (function Home() {
   var todosCollection = JSON.parse(localStorage.getItem('todoStorage')) || [];
 
@@ -137,7 +154,8 @@ var Home = (function Home() {
 
     function createTodo() {
       let todoDescription = document.querySelector('#todoDescription').value;
-      if (todoDescription.trim() != '') {
+      todoDescription = Helpers.sanitizeInput(todoDescription);
+      if (todoDescription != '' && /^(?=.{1,20}$).*/.test(todoDescription)) {
         addTodo(todoDescription);
       }
     }

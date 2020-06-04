@@ -35,7 +35,8 @@ li {
 
 li span {
   margin-left: 30px;
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 div.label {
