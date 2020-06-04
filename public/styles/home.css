@@ -4,6 +4,8 @@ main.home {
   background: #FFFFFF;
   box-shadow: 4px 4px 5px 5px #505050;
   border-radius: 3px;
+  display: flex;
+  flex-direction: column;
 }
 
 div.title {
@@ -16,11 +18,7 @@ hr.title-hr {
   margin: 0 10px;
 }
 
-ul li {
-  list-style-type: none;
-}
-
-li {
+li.todo-item {
   display: flex;
   align-items: center;
   height: 60px;
@@ -33,7 +31,7 @@ li {
   box-sizing: border-box;
 }
 
-li span {
+li.todo-item span {
   margin-left: 30px;
   font-size: 14px;
   font-weight: 700;
@@ -47,40 +45,95 @@ div.label {
   cursor: pointer;
 }
 
+li.todo-item div.label input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  background: #E0E0E0;
+  border: 1px solid #505050;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  -moz-outline-color: transparent;
+}
+
 li.toggled {
   background: linear-gradient(90deg, rgba(93,93,93,0.2) 0%, rgba(255,255,255,1) 100%);
 }
 
-li.toggled input[type=checkbox] {
-  background: none;
+li.toggled div.label input[type=checkbox] {
+  background: none !important;
+  border: 0 !important;
 }
 
 li.toggled span {
-  color: #DF3435;
-  text-decoration: line-through;
+  color: var(--main-red);
 }
 
-button.add-todo,
+li.toggled div.label input[type=checkbox]:after {
+  /*content: "✔";*/
+  content: '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀';
+  text-decoration: line-through;
+  color: var(--main-red);
+  font-size: 17px;
+}
+
 button.delete-todo,
-button.add-todo img,
 button.delete-todo img {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
+label.description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-[type=checkbox] {
-  width: 25px;
-  height: 25px;
-  background: #E0E0E0;
+label.description input {
+  width: 300px;
+  height: 35px;
+  background: #F9F9F9;
+  border: 1px solid #909090;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 0 10px;
+  color: #000;
+  margin-right: -2px;
   outline: none;
-  cursor: pointer;
   -moz-outline-color: transparent;
 }
 
-input {
-  background: #F4F4F4;
+button.add-todo {
+  width: 40px;
+  height: 37px;
+  text-align: center;
+  border-radius: 2px 2px 2px 0;
+  background: var(--main-blue);
 }
 
+button.add-todo img {
+  width: 25px;
+  height: 25px;
+  margin-top: 3px;
+  cursor: pointer;
+}
 
+button.add-todo, button.add-todo img {
+  outline: none;
+  -moz-outline-color: transparent;
+}
+
+a.toHome {
+  align-self: center;
+}
+
+button.to {
+  cursor: pointer;
+  width: 300px;
+  bottom: 13px;
+  background: var(--main-blue);
+  color: #FFFFFF;
+  margin-top: 50px;
+  padding: 10px;
+}

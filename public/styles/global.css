@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,700;1,500&display=swap');
 
+:root {
+  --main-blue: #3A2995;
+  --main-red: #942E30;
+}
+
 * {
   border: none;
   margin: 0;
@@ -8,6 +13,7 @@
   text-decoration: none;
   background: none;
   -webkit-appearance: none;
+  font-family: 'Raleway', sans-serif;
 }
 
 html, body {
@@ -15,7 +21,6 @@ html, body {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: 'Raleway', sans-serif;
 }
 
 a {
@@ -26,13 +31,17 @@ button {
   background: none;
 }
 
-h1 .light-weight {
-  font-weight: 300;
+ul li {
+  list-style-type: none;
 }
 
 hr {
-  border-top: 1px solid #505050;
+  border-top: 1px solid #B06D6D6D;
   height: 0;
+}
+
+h1 .light-weight {
+  font-weight: 300;
 }
 
 div .title {
@@ -40,7 +49,6 @@ div .title {
   justify-content: space-between;
   align-items: center;
 }
-
 
 /* *********************** */
 

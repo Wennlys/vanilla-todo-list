@@ -121,12 +121,12 @@ var Home = (function Home() {
        </div>
        <ul class="todo-list"></ul>
        <label for="todoDescription" class="description">
-         <input id="todoDescription"/>
+         <input id="todoDescription" placeholder="Add your todo"/>
+         <button class="add-todo">
+          <img src="public/assets/add-button.svg" alt="Add new To Do" />
+         </button>
        </label>
-       <button class="add-todo">
-        <img src="public/assets/add-button.svg" alt="Add new To Do" /> 
-       </button>
-       <button class="to"> About </button>
+       <a class="toHome" href="/#/about"><button class="to">About Me</button></a>
      </main>
    `;
   }
@@ -148,10 +148,6 @@ var Home = (function Home() {
         }
       });
 
-    document
-      .querySelector('.to')
-      .addEventListener('click', function redirectTo() { location.hash = '/about'; });
-
     function createTodo() {
       let todoDescription = document.querySelector('#todoDescription').value;
       todoDescription = Helpers.sanitizeInput(todoDescription);
@@ -171,16 +167,12 @@ var About = (function About() {
     return `
       <main>
         <h1> About </h1>
-          <button id="btn"> Home </button>
+          <button id="btn"><a href="/">Home</a></button>
       </main>
     `;
   }
 
-  function afterRender() {
-    document
-      .getElementById('btn')
-      .addEventListener('click', function onClick() { location.hash = '/'; });
-  }
+  function afterRender() {}
 }());
 
 var Header = (function Header() {
