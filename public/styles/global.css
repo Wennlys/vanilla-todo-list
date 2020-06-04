@@ -26,6 +26,22 @@ button {
   background: none;
 }
 
+h1 .light-weight {
+  font-weight: 300;
+}
+
+hr {
+  border-top: 1px solid #505050;
+  height: 0;
+}
+
+div .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 /* *********************** */
 
 #root {

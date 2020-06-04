@@ -1,8 +1,9 @@
 'use strict';
 
+window.addEventListener('DOMContentLoaded', () => App.renderPage());
+
 window.addEventListener('load', () => App.renderContent());
 window.addEventListener('hashchange', () => App.renderContent());
-window.addEventListener('DOMContentLoaded', () => App.renderPage());
 
 //* *******************************
 
@@ -13,23 +14,41 @@ var Home = (function Home() {
 
   //* *******************************
 
-  async function renderTodo(todo) {
+  function renderTodo(todo) {
+    const defaultDeleteButtonImage = 'public/assets/delete-button.svg';
+    const redDeleteButtonImage = 'public/assets/red-delete-button.svg';
+
     const todoHtml = `
-      <li class="todo-item" data-key="${todo.id}">
-        <label for="${todo.id}" class="isRead">
+      <li class="todo-item ${todo.isDone ? 'toggled' : 'untoggled'}" data-key="${todo.id}">
+        <div id="${todo.id}" class="label">
           <input id="${todo.id}" type="checkbox"/>
-        </label>
-        <span>${todo.description}</span>
-        <button class="delete" value="${todo.id}">
-            <img src="public/assets/delete-button.svg" alt="Remove this To Do"/>
+          <span>${todo.description}</span>
+        </div>
+        <button class="delete-todo" value="${todo.id}">
+          <img src="${todo.isDone ? redDeleteButtonImage : defaultDeleteButtonImage}" alt="Remove this To Do"/>
         </button>
       </li>
     `;
 
-    await document.querySelector('.list').insertAdjacentHTML('beforeend', todoHtml);
+    document.querySelector('.todo-list').insertAdjacentHTML('beforeend', todoHtml);
+
+    var item = document.querySelector(`li[data-key="${todo.id}"]`);
+    if (item) {
+      document.querySelector(`div[id="${todo.id}"]`).addEventListener('click', function toggleOnClick() {
+        // CSS Toggle/Untoggle
+
+        item.classList.toggle('toggled');
+        let toggledImgElement = document.querySelector(`.toggled[data-key="${todo.id}"] button img`);
+        if (toggledImgElement) {
+          toggledImgElement.src = redDeleteButtonImage;
+        } else {
+          document.querySelector(`button[value="${todo.id}"] img`).src = defaultDeleteButtonImage;
+        }
+      });
+    }
 
     document
-      .querySelector(`[value="${todo.id}"]`)
+      .querySelector(`button[value="${todo.id}"]`)
       .addEventListener('click', function deleteOnClick() {
         deleteTodo(todo.id);
       });
@@ -43,7 +62,7 @@ var Home = (function Home() {
   function addTodo(todoDescription) {
     var todo = {
       description: todoDescription,
-      done: false,
+      isDone: false,
       id: Date.now(),
     };
 
@@ -71,13 +90,17 @@ var Home = (function Home() {
 
   function render() {
     return `
-     <main>
-       <h1> ToDo List </h1>
-       <ul class="list"></ul>
+     <main class="home">
+       <div class="title">
+        <hr class="title-hr" />
+        <h1>ToDo<span class="light-weight">List</span></h1>
+        <hr class="title-hr" />
+       </div>
+       <ul class="todo-list"></ul>
        <label for="todoDescription" class="description">
          <input id="todoDescription"/>
        </label>
-       <button class="add">
+       <button class="add-todo">
         <img src="public/assets/add-button.svg" alt="Add new To Do" /> 
        </button>
        <button class="to"> About </button>
@@ -89,7 +112,7 @@ var Home = (function Home() {
     loadTodos();
 
     document
-      .querySelector('.add')
+      .querySelector('.add-todo')
       .addEventListener('click', function addOnClick() {
         createTodo();
       });
@@ -162,8 +185,8 @@ var Footer = (function Footer() {
     return `
       <footer>
         <ul class="nav-bar">
-          <li><a href="#">Home</a></li>
-          <li><a href="/#/about">Home</a></li>
+          <li><a href="#">Footer</a></li>
+          <li><a href="/#/about">Footer</a></li>
         </ul>
       </footer>
     `;
