@@ -126,7 +126,7 @@ var Home = (function Home() {
           <img src="public/assets/add-button.svg" alt="Add new To Do" />
          </button>
        </label>
-       <a class="toHome" href="/#/about"><button class="to">About Me</button></a>
+       <a href="/#/about">About Me</a>
      </main>
    `;
   }

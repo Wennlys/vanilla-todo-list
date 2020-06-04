@@ -124,16 +124,13 @@ button.add-todo, button.add-todo img {
   -moz-outline-color: transparent;
 }
 
-a.toHome {
+main.home a {
   align-self: center;
-}
-
-button.to {
-  cursor: pointer;
+  text-align: center;
   width: 300px;
-  bottom: 13px;
   background: var(--main-blue);
   color: #FFFFFF;
+  cursor: pointer;
   margin-top: 50px;
   padding: 10px;
 }
