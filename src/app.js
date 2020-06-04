@@ -15,6 +15,7 @@ var Home = (function Home() {
   //* *******************************
 
   function renderTodo(todo) {
+    console.log(todosCollection[0]);
     const defaultDeleteButtonImage = 'public/assets/delete-button.svg';
     const redDeleteButtonImage = 'public/assets/red-delete-button.svg';
 
@@ -44,6 +45,8 @@ var Home = (function Home() {
         } else {
           document.querySelector(`button[value="${todo.id}"] img`).src = defaultDeleteButtonImage;
         }
+
+        updateTodoStatus(todo);
       });
     }
 
@@ -52,6 +55,12 @@ var Home = (function Home() {
       .addEventListener('click', function deleteOnClick() {
         deleteTodo(todo.id);
       });
+  }
+
+  function updateTodoStatus(todo) {
+    const index = todosCollection.indexOf(todo);
+    todosCollection[index].isDone = !todo.isDone;
+    localStorage.setItem('todoStorage', JSON.stringify(todosCollection));
   }
 
   function saveTodo(todo) {
