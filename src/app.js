@@ -151,7 +151,7 @@ var Home = (function Home() {
     document
       .querySelector('a#toAbout')
       .addEventListener('click', function redirectToAbout() {
-        location.hash = `${location.hash == '#/' && location.hash != '#/about' ? 'about' : '#/about'}`;
+        location.hash = `${location.hash == '#/' && location.hash != '#/about' ? '/about' : '#/about'}`;
       });
 
     //* **************************
