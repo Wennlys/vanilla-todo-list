@@ -1,8 +1,6 @@
 'use strict';
 
 window.addEventListener('DOMContentLoaded', () => App.renderPage());
-
-window.addEventListener('load', () => App.renderContent());
 window.addEventListener('hashchange', () => App.renderContent());
 
 //* *******************************
@@ -15,7 +13,6 @@ var Home = (function Home() {
   //* *******************************
 
   function renderTodo(todo) {
-    console.log(todosCollection[0]);
     const defaultDeleteButtonImage = 'public/assets/delete-button.svg';
     const redDeleteButtonImage = 'public/assets/red-delete-button.svg';
 
