@@ -126,7 +126,7 @@ var Home = (function Home() {
           <img src="public/assets/add-button.svg" alt="Add new To Do" />
          </button>
        </label>
-       <a>About Me</a>
+       <a id="toAbout">About Me</a>
      </main>
    `;
   }
@@ -149,9 +149,9 @@ var Home = (function Home() {
       });
 
     document
-      .querySelector('a')
+      .querySelector('a#toAbout')
       .addEventListener('click', function redirectToAbout() {
-        location.href += `${location.hash != '#/' ? 'about' : '#/about'}`;
+        location.hash = `${location.hash == '#/' && location.hash != '#/about' ? 'about' : '#/about'}`;
       });
 
     //* **************************
@@ -180,16 +180,16 @@ var About = (function About() {
           <h2>${user.name}</h2>
           <p>${user.bio}</p>
           <a href="${user.html_url}">My Repos</a>
-          <a id="to">Home</a>
+          <a id="toHome">Home</a>
       </main>
     `;
   }
 
   function afterRender() {
     document
-      .querySelector('a#to')
-      .addEventListener('click', function redirectToHome() {
-        console.log(location);
+      .querySelector('a#toHome')
+      .addEventListener('click', function redirectToAbout() {
+        location.hash = '#/';
       });
   }
 }());
