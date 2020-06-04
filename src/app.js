@@ -176,40 +176,24 @@ var About = (function About() {
 }());
 
 var Header = (function Header() {
-  return { render, afterRender };
+  return { render };
 
   function render() {
     return `
-      <header>
-        <ul class="nav-bar">
-          <li><a href="#">Home</a></li>
-          <li><a href="/#/about">Home</a></li>
-        </ul>
-      </header>
+      <header></header>
     `;
-  }
-
-  function afterRender() {
-
   }
 }());
 
 var Footer = (function Footer() {
-  return { render, afterRender };
+  return { render };
 
   function render() {
     return `
       <footer>
-        <ul class="nav-bar">
-          <li><a href="#">Footer</a></li>
-          <li><a href="/#/about">Footer</a></li>
-        </ul>
+        <p>Wennlys Oliveira © 2020 <a style="color:#3A2995" href="https://github.com/Wennlys">github.com/Wennlys</a></p>
       </footer>
     `;
-  }
-
-  function afterRender() {
-
   }
 }());
 

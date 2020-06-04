@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 
 :root {
   --main-blue: #3A2995;
   --main-red: #942E30;
+  --main-darken-lightgrey: #D9D7CC;
 }
 
 * {
@@ -64,18 +66,20 @@ div .title {
 
 header {
   width: 100%;
-  background: #7711AA;
-}
-
-header li {
-  display: inline-block;
+  height: 30px;
+  background: var(--main-darken-lightgrey);
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  background: #19518e;
+  height: 30px;
+  background: var(--main-darken-lightgrey);
 }
 
-footer li {
-  display: inline-block;
+footer p{
+  font-family: 'Nanum Gothic Coding', sans-serif;
+  font-size: 15px;
 }
