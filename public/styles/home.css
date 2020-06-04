@@ -19,7 +19,7 @@ hr.title-hr {
 }
 
 ul.todo-list {
-  height: 40%;
+  max-height: 40%;
   overflow-y: auto;
 }
 
