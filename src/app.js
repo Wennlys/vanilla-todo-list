@@ -126,7 +126,7 @@ var Home = (function Home() {
           <img src="public/assets/add-button.svg" alt="Add new To Do" />
          </button>
        </label>
-       <a href="/#/about">About Me</a>
+       <a>About Me</a>
      </main>
    `;
   }
@@ -147,6 +147,14 @@ var Home = (function Home() {
           createTodo();
         }
       });
+
+    document
+      .querySelector('a')
+      .addEventListener('click', function redirectToAbout() {
+        location.href += `${location.hash != '#/' ? 'about' : '#/about'}`;
+      });
+
+    //* **************************
 
     function createTodo() {
       let todoDescription = document.querySelector('#todoDescription').value;
@@ -172,13 +180,17 @@ var About = (function About() {
           <h2>${user.name}</h2>
           <p>${user.bio}</p>
           <a href="${user.html_url}">My Repos</a>
-          <a href="/">Home</a>
+          <a id="to">Home</a>
       </main>
     `;
   }
 
   function afterRender() {
-
+    document
+      .querySelector('a#to')
+      .addEventListener('click', function redirectToHome() {
+        console.log(location);
+      });
   }
 }());
 

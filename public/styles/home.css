@@ -18,6 +18,11 @@ hr.title-hr {
   margin: 0 10px;
 }
 
+ul.todo-list {
+  height: 50%;
+  overflow-y: scroll;
+}
+
 li.todo-item {
   display: flex;
   align-items: center;
