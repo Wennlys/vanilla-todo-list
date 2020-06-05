@@ -1,6 +1,8 @@
+/* TODO: ul max-sizing & colors */
+
 main.home {
   width: 400px;
-  height: 600px;
+  max-height: 600px;
   background: #FFFFFF;
   box-shadow: 4px 4px 5px 5px #505050;
   border-radius: 3px;
@@ -131,6 +133,7 @@ button.add-todo, button.add-todo img {
 
 main.home a {
   align-self: center;
+  margin-bottom: 50px;
   text-align: center;
   width: 300px;
   background: var(--main-blue);
