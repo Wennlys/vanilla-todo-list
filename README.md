@@ -1,6 +1,6 @@
 # SPA To-Do List
 
-Click here to test it on the live environment
+[Click here to test it on the live environment](https://wennlys.github.io/vanilla-todo-list/).
 
 This is a To-Do List made only with Vanilla JavaScript using the module pattern. 
 
